@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 const kPrimaryColor = Color(0xFF363A99);
 const kTextColor = Color(0xFF363A99);
 const kIconColor = Color(0xFF5E5E5E);
 const kBackground = Color(0xFFE5E5E5);
+const kfont = "Open Sans";
 
 const kDefaultPadding = 20.0;
 
@@ -16,15 +17,13 @@ final kDefualtShadow = BoxShadow(
 
 // For add free space vertically
 class VerticalSpacing extends StatelessWidget {
-  const VerticalSpacing({
-    Key key,
-  }) : super(key: key);
-
+  const VerticalSpacing({Key key, this.of = 0.02}) : super(key: key);
+  final double of;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height * 0.02,
+      height: size.height * of,
     );
   }
 }
@@ -43,7 +42,7 @@ class RoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AuthService>(context);
+    //final provider = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -54,14 +53,15 @@ class RoundedButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 13, horizontal: 45),
           color: color,
           onPressed: press,
-          child: provider.isLoading
-              ? CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                )
-              : Text(
+          child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ) !=
+                  null
+              ? Text(
                   text,
                   style: TextStyle(color: textColor),
-                ),
+                )
+              : null,
         ),
       ),
     );
